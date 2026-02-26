@@ -1,0 +1,108 @@
+<Window x:Class="Lab_rab_2_KutlubaevAD_БПИ_23_02.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сравнение сортировок — многопоточность (Кутлубaев А.Д.)"
+        Height="700" Width="740" MinWidth="600" MinHeight="580">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="12">
+
+            <GroupBox Header="Параметры" Margin="0,0,0,8" Padding="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Размер массива:"
+                           VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="4,4,4,4"
+                             Text="{Binding ArraySize, UpdateSourceTrigger=PropertyChanged}"
+                             VerticalAlignment="Center"/>
+                    <Button Grid.Row="0" Grid.Column="2" Content="🔀 Сгенерировать"
+                            Command="{Binding GenerateArrayCommand}"
+                            Margin="4" Height="28"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                Orientation="Horizontal" Margin="0,4,0,0">
+                        <Label Content="Число потоков:" VerticalAlignment="Center"/>
+                        <ComboBox ItemsSource="{Binding ThreadCounts}"
+                                  SelectedItem="{Binding ThreadCount}"
+                                  Width="55" Margin="4,0" VerticalAlignment="Center"/>
+                        <CheckBox Content="Общий массив (Задание 4)"
+                                  IsChecked="{Binding UseSharedArray}"
+                                  VerticalAlignment="Center" Margin="12,0,0,0"/>
+                    </StackPanel>
+                    <Button Grid.Row="1" Grid.Column="2" Content="⛔ Остановить всё"
+                            Command="{Binding StopAllCommand}"
+                            Background="Red" Margin="4,4,4,0" Height="26"/>
+                </Grid>
+            </GroupBox>
+
+            <TextBlock Text="{Binding OriginalArrayString}" TextWrapping="Wrap"
+                       Margin="4,0,4,8" Foreground="#333"
+                       FontFamily="Consolas" FontSize="11"/>
+
+            <WrapPanel Margin="0,0,0,8">
+                <Button Content="▶ Пузырьковая"  Command="{Binding BubbleSortCommand}"
+                        Width="150" Height="30" Margin="4"/>
+                <Button Content="▶ Быстрая"       Command="{Binding QuickSortCommand}"
+                        Width="150" Height="30" Margin="4"/>
+                <Button Content="▶ Вставками"     Command="{Binding InsertionSortCommand}"
+                        Width="150" Height="30" Margin="4"/>
+                <Button Content="▶ Шейкерная"     Command="{Binding ShakerSortCommand}"
+                        Width="150" Height="30" Margin="4"/>
+            </WrapPanel>
+
+
+            <GroupBox Header="Пузырьковая сортировка" Margin="0,0,0,6" Padding="6">
+                <StackPanel>
+                    <ProgressBar Value="{Binding BubbleProgress}" Maximum="100"
+                                 Height="16" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding BubbleSortResult}" TextWrapping="Wrap"
+                               FontFamily="Consolas" FontSize="11"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Быстрая сортировка" Margin="0,0,0,6" Padding="6">
+                <StackPanel>
+                    <ProgressBar Value="{Binding QuickProgress}" Maximum="100"
+                                 Height="16" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding QuickSortResult}" TextWrapping="Wrap"
+                               FontFamily="Consolas" FontSize="11"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Сортировка вставками" Margin="0,0,0,6" Padding="6">
+                <StackPanel>
+                    <ProgressBar Value="{Binding InsertionProgress}" Maximum="100"
+                                 Height="16" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding InsertionSortResult}" TextWrapping="Wrap"
+                               FontFamily="Consolas" FontSize="11"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Шейкерная сортировка (Задание 1)" Margin="0,0,0,6" Padding="6">
+                <StackPanel>
+                    <ProgressBar Value="{Binding ShakerProgress}" Maximum="100"
+                                 Height="16" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding ShakerSortResult}" TextWrapping="Wrap"
+                               FontFamily="Consolas" FontSize="11"/>
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock Text="{Binding TotalComparisons}"
+                       FontWeight="Bold" FontSize="13" Margin="4,4,4,4"/>
+
+            <TextBlock Text="{Binding SharedArrayNote}"
+                       Foreground="#AA3300" TextWrapping="Wrap"
+                       FontSize="11" Margin="4,0,4,8"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>
